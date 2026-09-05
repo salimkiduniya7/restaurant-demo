@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Kitchen Dashboard</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f3f4f6;
+}
+
+.login-screen{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+
+.login-box{
+background:white;
+padding:30px;
+border-radius:20px;
+width:100%;
+max-width:400px;
+box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+.login-box h1{
+text-align:center;
+margin-bottom:20px;
+}
+
+.login-box input{
+width:100%;
+padding:14px;
+border:1px solid #ddd;
+border-radius:10px;
+margin-bottom:15px;
+}
+
+.login-box button{
+width:100%;
+padding:14px;
+border:none;
+background:#2563eb;
+color:white;
+font-size:16px;
+border-radius:10px;
+cursor:pointer;
+}
+
+.dashboard{
+display:none;
+}
+
+header{
+background:#111827;
+color:white;
+padding:20px;
+text-align:center;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+padding:15px;
+}
+
+.stat-box{
+background:white;
+padding:15px;
+border-radius:12px;
+text-align:center;
+box-shadow:0 3px 10px rgba(0,0,0,.1);
+}
+
+.stat-box h2{
+color:#2563eb;
+}
+
+.orders{
+padding:15px;
+display:grid;
+gap:15px;
+}
+
+.order-card{
+background:white;
+padding:15px;
+border-radius:15px;
+box-shadow:0 3px 10px rgba(0,0,0,.1);
+}
+
+.order-top{
+display:flex;
+justify-content:space-between;
+margin-bottom:10px;
+}
+
+.table-badge{
+background:#2563eb;
+color:white;
+padding:6px 12px;
+border-radius:20px;
+font-size:14px;
+}
+
+.customer{
+font-weight:bold;
+}
+
+.items{
+margin-top:10px;
+margin-bottom:10px;
+}
+
+.items li{
+margin-left:20px;
+margin-bottom:5px;
+}
+
+.note{
+background:#fef3c7;
+padding:10px;
+border-radius:10px;
+margin-top:10px;
+}
+
+.status{
+margin-top:15px;
+font-weight:bold;
+}
+
+.buttons{
+display:flex;
+gap:10px;
+margin-top:15px;
+}
+
+.buttons button{
+flex:1;
+padding:10px;
+border:none;
+color:white;
+border-radius:8px;
+cursor:pointer;
+}
+
+.preparing{
+background:#f59e0b;
+}
+
+.ready{
+background:#10b981;
+}
+
+.delivered{
+background:#6b7280;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="login-screen" id="loginScreen">
+
+<div class="login-box">
+
+<h1>Kitchen Access</h1>
+
+<input
+type="password"
+id="code"
+placeholder="Enter Secret Code">
+
+<button onclick="login()">
+Access Dashboard
+</button>
+
+</div>
+
+</div>
+
+<div class="dashboard" id="dashboard">
+
+<header>
+
+<h1>Royal Spice Kitchen</h1>
+
+<p>Kitchen Dashboard</p>
+
+</header>
+
+<div class="stats">
+
+<div class="stat-box">
+<h2>12</h2>
+<p>New Orders</p>
+</div>
+
+<div class="stat-box">
+<h2>5</h2>
+<p>Preparing</p>
+</div>
+
+<div class="stat-box">
+<h2>8</h2>
+<p>Ready</p>
+</div>
+
+</div>
+
+<div class="orders">
+
+<div class="order-card">
+
+<div class="order-top">
+
+<div class="table-badge">
+Table 5
+</div>
+
+<div class="customer">
+Salim
+</div>
+
+</div>
+
+<ul class="items">
+
+<li>2 x Chicken Burger</li>
+<li>1 x Pepsi</li>
+<li>1 x French Fries</li>
+
+</ul>
+
+<div class="note">
+Extra Onion<br>
+No Tomato
+</div>
+
+<div class="status" id="status1">
+Status: New Order
+</div>
+
+<div class="buttons">
+
+<button
+class="preparing"
+onclick="setStatus('status1','Preparing')">
+
+Preparing
+
+</button>
+
+<button
+class="ready"
+onclick="setStatus('status1','Ready')">
+
+Ready
+
+</button>
+
+<button
+class="delivered"
+onclick="setStatus('status1','Delivered')">
+
+Delivered
+
+</button>
+
+</div>
+
+</div>
+
+<div class="order-card">
+
+<div class="order-top">
+
+<div class="table-badge">
+Table 8
+</div>
+
+<div class="customer">
+Ahmed
+</div>
+
+</div>
+
+<ul class="items">
+
+<li>1 x Pizza</li>
+<li>2 x Coke</li>
+
+</ul>
+
+<div class="note">
+Extra Cheese
+</div>
+
+<div class="status" id="status2">
+Status: New Order
+</div>
+
+<div class="buttons">
+
+<button
+class="preparing"
+onclick="setStatus('status2','Preparing')">
+
+Preparing
+
+</button>
+
+<button
+class="ready"
+onclick="setStatus('status2','Ready')">
+
+Ready
+
+</button>
+
+<button
+class="delivered"
+onclick="setStatus('status2','Delivered')">
+
+Delivered
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const ACCESS_CODE = "6161";
+
+function login(){
+
+const code =
+document.getElementById("code").value;
+
+if(code === ACCESS_CODE){
+
+document.getElementById("loginScreen")
+.style.display="none";
+
+document.getElementById("dashboard")
+.style.display="block";
+
+}else{
+
+alert("Invalid Access Code");
+
+}
+
+}
+
+function setStatus(id,status){
+
+document.getElementById(id)
+.innerText =
+"Status: " + status;
+
+}
+
+</script>
+
+</body>
+</html>
